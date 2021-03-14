@@ -9,8 +9,9 @@ pipeline{
     stages{
  stage("clone"){
         steps{
-checkout([$class: 'GitSCM', extensions: [], userRemoteConfigs: [[ url: 'https://github.com/mhodali/client.git']]])
+checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mhodali/client.git']]])        
         }}
+        
       
       stage("build"){
         steps{
