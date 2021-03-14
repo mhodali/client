@@ -23,7 +23,11 @@ stage('Push image') {
   docker.withRegistry( '', registryCredential ) {
         dockerImage.push() 
            }}}}
-
+      stage("run"){
+        steps{
+ 
+         sh './create-client.sh'
+        }}
       
     }
   }
