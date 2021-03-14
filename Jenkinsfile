@@ -1,0 +1,29 @@
+pipeline{
+  agent any 
+      environment {
+        registry = 'mhodali/client'
+        dockerImage = ''
+        registryCredential='client'
+    }
+    
+    stages{
+ stage("clone"){
+        steps{
+checkout([$class: 'GitSCM', extensions: [], userRemoteConfigs: [[ url: 'https://github.com/mhodali/client.git']]])
+        }}
+      
+      stage("build"){
+        steps{
+        script {
+          dockerImage = docker.build registry
+        }}}
+stage('Push image') {
+           steps{
+        script {
+  docker.withRegistry( '', registryCredential ) {
+        dockerImage.push() 
+           }}}}
+
+      
+    }
+  }
